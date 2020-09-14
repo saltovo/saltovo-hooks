@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react'
-import  axios  from 'axios'
+import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react'
+import axios from 'axios'
 
 export function useTableHooks(localKey, defaultdata) {
   //loading 状态
@@ -42,4 +42,18 @@ export function useTableHooks(localKey, defaultdata) {
       res: response.current
     }
   }
+}
+
+export function UseBool(defaultValue = false) {
+  const [state, setState] = useState(defaultValue)
+
+  const actions = useMemo(() => {
+    const setTrue = () => setState(true);
+    const setFalse = () => setState(false);
+    const toggle = () => setState(!state)
+    return { toggle, setTrue, setFalse };
+  }, [state])
+
+  return { state, ...actions }
+
 }

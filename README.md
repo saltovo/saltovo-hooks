@@ -15,7 +15,7 @@ npm install --save saltovo
 ```jsx
 import React, { useState } from 'react'
 
-import {  useTableHooks } from 'saltovo'
+import {  useTableHooks , UseBool } from 'saltovo'
 
 const Example = () => {
  const [payload, setPayload] = useState(
