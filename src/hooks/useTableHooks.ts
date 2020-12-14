@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import axios from 'axios'
+import { Method } from 'axios/index'
 
-export default function useTableHooks(defaultdata,axios) {
+export  function useTableHooks(localKey: string, defaultdata: any) {
     //loading 状态
     const [loading, setLoading] = useState(false)
     // 返回的数据
@@ -9,7 +10,7 @@ export default function useTableHooks(defaultdata,axios) {
     //是否有Authorization
     const token = localKey || ''
 
-    return (payload, url, method) => {
+    return (payload: any, url: string, method:Method) => {
         //缓存请求
         const render = useCallback(() => {
             //开始处理数据 变loading状态为true

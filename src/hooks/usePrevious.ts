@@ -1,6 +1,6 @@
-import React, { useRef } from 'react'
+import{ useRef } from 'react'
 
-export default (state, compare = undefined) => {
+export default (state:any, compare : (currentState:any,state:any)=>void|undefined) => {
 
     const previousState = useRef();
     const currentState = useRef();
