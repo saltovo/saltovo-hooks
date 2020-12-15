@@ -6,7 +6,7 @@ export function useTableHooks(localKey: string, defaultdata?: any) {
   //loading 状态
   const [loading, setLoading] = useState<boolean>(false);
   // 返回的数据
-  const response = useRef<any>({});
+  const response = useRef<any>({} || defaultdata);
   //是否有Authorization
   const token = localKey || '';
 
@@ -31,14 +31,11 @@ export function useTableHooks(localKey: string, defaultdata?: any) {
       });
     }, [payload]);
 
-    //给response.current一个默认的初始值
-    useEffect(() => {
-      response.current = defaultdata || [];
-    }, []);
-
     useEffect(() => {
       //每当payload变化时重新请求数据
-      // response.current = defaultdata || []
+      // if (Object.keys(response.current).length != 0) {
+      //   response.current = defaultdata || {}
+      // }
       render();
     }, [payload]);
 
