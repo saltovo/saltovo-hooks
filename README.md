@@ -15,18 +15,11 @@ npm install --save saltovo
 ```jsx
 import React, { useState } from 'react'
 
-import {  useTableHooks , UseBool } from 'saltovo'
+import {  useTableHooks } from 'saltovo'
 
 const Example = () => {
- const [payload, setPayload] = useState(
-    {
-      ExpertType: '',
-      pageSize: 100,
-      pageIndex: 1,
-      IsOuterStatus: 1,
-    }
-  )
-  const { loading, res } = useTableHooks('ODMTOKEN')(payload, `${secodm}/api/v1/Expert/ExpertUser/GetExpertUserList`, 'post')
+ const [payload, setPayload] = useState({})
+  const { loading, res } = useTableHooks(token)(payload, url, method)
   return (
     <div>
     {loading}
