@@ -3,10 +3,11 @@ import axios from 'axios';
 import { Method } from 'axios/index';
 
 export function useTableHooks(localKey: string, defaultdata?: any) {
+  const responseDefaultData: any = defaultdata ? defaultdata : {};
   //loading 状态
   const [loading, setLoading] = useState<boolean>(false);
   // 返回的数据
-  const response = useRef<any>({} || defaultdata);
+  const response = useRef<any>(responseDefaultData);
   //是否有Authorization
   const token = localKey || '';
 
