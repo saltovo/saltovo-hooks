@@ -12,7 +12,7 @@ export function useTableHooks(localKey: string, defaultdata?: any) {
   const token = localKey || '';
 
   return (payload: any, url: string, method: Method) => {
-    const renderPayload = useRef<any>(payload);
+    const [renderPayload, setRenderPayload] = useState<any>(payload);
     //缓存请求
     const render = useCallback(() => {
       //开始处理数据 变loading状态为true
@@ -31,7 +31,7 @@ export function useTableHooks(localKey: string, defaultdata?: any) {
         //获得数据变loading为false 同时刷新response.current的数据
         setLoading(false);
       });
-    }, [renderPayload.current]);
+    }, [renderPayload]);
 
     useEffect(() => {
       //每当payload变化时重新请求数据
@@ -39,8 +39,7 @@ export function useTableHooks(localKey: string, defaultdata?: any) {
       //   response.current = defaultdata || {}
       // }
       render();
-      console.log(payload);
-    }, [renderPayload.current]);
+    }, [renderPayload]);
 
     useEffect(() => {
       /**
@@ -49,9 +48,9 @@ export function useTableHooks(localKey: string, defaultdata?: any) {
        * 现阶段只支持object的比较，同时也用的JSON.stringify,后面打算手写lodash的isEqual来实现比较
        */
       const payloadSrting: string = JSON.stringify(payload);
-      const renderPayloadString: string = JSON.stringify(renderPayload.current);
+      const renderPayloadString: string = JSON.stringify(renderPayload);
       if (payloadSrting != renderPayloadString) {
-        renderPayload.current = payload;
+        setRenderPayload(payload);
       }
     }, [payload]);
 
