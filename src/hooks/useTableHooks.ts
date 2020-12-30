@@ -3,6 +3,11 @@ import axios from 'axios';
 import { Method } from 'axios/index';
 import { useDeepCompareState } from './useDeepCompareState';
 
+interface UseTableHooksProps {
+  loading: boolean;
+  res: any;
+}
+
 export function useTableHooks(localKey: string, defaultdata?: any) {
   const responseDefaultData: any = defaultdata ? defaultdata : {};
   //loading 状态
@@ -12,7 +17,7 @@ export function useTableHooks(localKey: string, defaultdata?: any) {
   //是否有Authorization
   const token = localKey || '';
 
-  return (payload: any, url: string, method: Method) => {
+  return (payload: any, url: string, method: Method): UseTableHooksProps => {
     const renderPayload = useDeepCompareState(payload);
     // const [renderPayload, setRenderPayload] = useState<any>(payload);
     //缓存请求
