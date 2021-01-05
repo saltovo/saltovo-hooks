@@ -8,7 +8,7 @@ interface UseTableHooksProps {
   res: any;
 }
 
-export function useTableHooks(localKey: string, defaultdata?: any) {
+export function useTableHooks(localKey?: string, defaultdata?: any) {
   const responseDefaultData: any = defaultdata ? defaultdata : {};
   //loading 状态
   const [loading, setLoading] = useState<boolean>(false);
@@ -26,9 +26,12 @@ export function useTableHooks(localKey: string, defaultdata?: any) {
       setLoading(!loading);
       //请求数据
       axios({
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers:
+          token.length === 0
+            ? {}
+            : {
+                Authorization: `Bearer ${token}`,
+              },
         url: url,
         method: method,
         data: payload,
